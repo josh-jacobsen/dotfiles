@@ -48,6 +48,9 @@ vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '<leader>mc', ':Neotree close right<CR>', { desc = '[M]isc [C]lose' })
 vim.keymap.set('n', '<leader>mf', ':Neotree reveal=true<CR>', { desc = '[Misc] [F]ind file in Neotree' })
 
+-- Neogit keymaps
+vim.keymap.set('n', '<leader>mg', ':Neogit<CR>', { desc = '[M]isc [G]it' })
+
 -- ESLint keymaps
 vim.keymap.set('n', '<leader>cl', ':EslintFixAll<CR>', { desc = '[C]ode [L]int' })
 
