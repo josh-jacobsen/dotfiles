@@ -45,17 +45,24 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
 -- Neo-tree keymaps
-vim.keymap.set('n', '<leader>mc', ':Neotree close right<CR>', { desc = '[M]isc [C]lose' })
+vim.keymap.set('n', '<leader>mc', ':Neotree close right<CR>', { desc = '[M]isc [C]lose Neotree' })
 vim.keymap.set('n', '<leader>mf', ':Neotree reveal=true<CR>', { desc = '[Misc] [F]ind file in Neotree' })
 
 -- Neogit keymaps
 vim.keymap.set('n', '<leader>mg', ':Neogit<CR>', { desc = '[M]isc [G]it' })
 
+-- Gitsigns keymaps
+vim.keymap.set('n', '<leader>mn', ':Gitsigns next_hunk<CR>', { desc = '[M]isc [N]ext Hunk' })
+vim.keymap.set('n', '<leader>mp', ':Gitsigns prev_hunk<CR>', { desc = '[M]isc [P]rev Hunk' })
+vim.keymap.set('n', '<leader>mv', ':Gitsigns preview_hunk_inline<CR>', { desc = '[M]isc Pre[V]iew Inline' })
+vim.keymap.set('n', '<leader>mb', ':Gitsigns blame_line<CR>', { desc = '[M]isc [B]lame Line' })
+vim.keymap.set('n', '<leader>ms', ':Gitsigns stage_hunk<CR>', { desc = '[M]isc [S]tage' })
+vim.keymap.set('n', '<leader>mu', ':Gitsigns undo_stage_hunk<CR>', { desc = '[M]isc [U]nstage' })
 -- ESLint keymaps
 vim.keymap.set('n', '<leader>cl', ':EslintFixAll<CR>', { desc = '[C]ode [L]int' })
 
 -- ToggleTerm keymaps
-vim.keymap.set('n', '<leader>mb', ':ToggleTerm size=15<CR>', { desc = '[Misc] Open Terminal [B]ottom' })
+vim.keymap.set('n', '<leader>md', ':ToggleTerm size=15<CR>', { desc = '[Misc] Open Terminal [D]own' })
 vim.keymap.set('n', '<leader>ml', ':ToggleTerm direction=float<CR>', { desc = '[M]isc Open Terminal [L]evitating' })
 
 -- [[ Basic Autocommands ]]
