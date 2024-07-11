@@ -63,7 +63,6 @@ require('lazy').setup({
   require 'carnifx/plugins/autopairs',
   require 'carnifx/plugins/lsp-signature',
   require 'carnifx/plugins/vim-tmux-navigator',
-  require 'carnifx/plugins/vim-test',
   require 'carnifx/plugins/harpoon',
   require 'carnifx/plugins/neotest',
   require 'carnifx/plugins/dap',
