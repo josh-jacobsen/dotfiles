@@ -72,7 +72,7 @@ require('lazy').setup({
   require 'carnifx/plugins/vim-tmux-navigator',
   require 'carnifx/plugins/harpoon',
   require 'carnifx/plugins/neotest',
-  require 'carnifx/plugins/dap',
+  -- require 'carnifx/plugins/dap',
   require 'carnifx/plugins/oil',
   require 'carnifx/plugins/neogit',
   require 'carnifx/plugins/copilot',

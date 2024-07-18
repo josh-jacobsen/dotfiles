@@ -1,3 +1,4 @@
+-- this is commented out in lazy-plugins.lua as there is an issue after upgrading to nvim 0.10
 return {
   'mfussenegger/nvim-dap',
   lazy = true,
@@ -103,10 +104,5 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
-    -- dap.listeners.after.event_initialized['dapui_config'] = function()
-    --   dapui.open { reset = true }
-    -- end
-    -- dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-    -- dap.listeners.before.event_exited['dapui_config'] = dapui.close
   end,
 }

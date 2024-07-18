@@ -83,7 +83,8 @@ return {
       neotest.run.run()
     end, { desc = '[T]est [N]earest' })
 
-    vim.keymap.set('n', '<leader>ty', function()
+    -- Nvim DAP isn't set up yet, so this will fail if called
+    vim.keymap.set('n', '<leader>td', function()
       require('neotest').run.run { strategy = 'dap' }
     end, { desc = '[T]est [D]ebug' })
 
