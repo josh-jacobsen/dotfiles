@@ -11,8 +11,8 @@ vim.keymap.set('i', 'jk', '<ESC>')
 -- delete single character without copying into register
 vim.keymap.set('n', 'x', '"_x')
 
--- Shoutcut to save file (ZZ saves and exits, ZQ exists without saving, so ZW makes sense to save without exiting)
-vim.keymap.set('n', 'ZW', ':w<CR>', { desc = 'Save file' })
+-- Shoutcut to save file (inbuilt Keybinds are ZZ to save and exit, ZQ to exit without saving)
+vim.keymap.set('n', ';', ':w<CR>', { desc = 'Save file' })
 
 -- When code is selected, use J and K to move the blocks up/down
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
