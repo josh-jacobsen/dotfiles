@@ -51,18 +51,11 @@ vim.keymap.set('n', '<leader>mc', ':Neotree close right<CR>', { desc = '[M]isc [
 vim.keymap.set('n', '<leader>mf', ':Neotree reveal=true<CR>', { desc = '[Misc] [F]ind file in Neotree' })
 
 -- Neogit keymaps
-vim.keymap.set('n', '<leader>mg', ':Neogit<CR>', { desc = '[M]isc [G]it' })
+vim.keymap.set('n', '<leader>mg', ':Neogit<CR>')
 
 -- Neogit keymaps
-vim.keymap.set('n', '<leader>mo', ':Oil<CR>', { desc = '[M]isc [O]il' })
+vim.keymap.set('n', '<leader>mo', ':Oil<CR>')
 
--- Gitsigns keymaps
-vim.keymap.set('n', '<leader>mn', ':Gitsigns next_hunk<CR>', { desc = '[M]isc [N]ext Hunk' })
-vim.keymap.set('n', '<leader>mp', ':Gitsigns prev_hunk<CR>', { desc = '[M]isc [P]rev Hunk' })
-vim.keymap.set('n', '<leader>mv', ':Gitsigns preview_hunk_inline<CR>', { desc = '[M]isc Pre[V]iew Inline' })
-vim.keymap.set('n', '<leader>mb', ':Gitsigns blame_line<CR>', { desc = '[M]isc [B]lame Line' })
-vim.keymap.set('n', '<leader>ms', ':Gitsigns stage_hunk<CR>', { desc = '[M]isc [S]tage' })
-vim.keymap.set('n', '<leader>mu', ':Gitsigns undo_stage_hunk<CR>', { desc = '[M]isc [U]nstage' })
 -- ESLint keymaps
 vim.keymap.set('n', '<leader>cl', ':EslintFixAll<CR>', { desc = '[C]ode [L]int' })
 
