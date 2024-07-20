@@ -1,31 +1,13 @@
 -- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
---
+
 -- At some point, move to automatically configuring plugins based on the directory
 -- supplied to the "setup" argument
 -- require('lazy').setup("carnifx.plugins", {})
 -- for more info see: https://github.com/garcia5/dotfiles/blob/master/files/nvim/init.lua#L26-L32
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to force a plugin to be loaded.
-  --
-  --  This is equivalent to:
-  --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -36,9 +18,11 @@ require('lazy').setup({
       require('copilot_cmp').setup()
     end,
   },
-
-  -- modular approach: using `require 'path/name'` will
-  -- include a plugin definition from file lua/path/name.lua
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
 
   require 'kickstart/plugins/gitsigns',
 
@@ -73,9 +57,9 @@ require('lazy').setup({
   require 'carnifx/plugins/harpoon',
   require 'carnifx/plugins/neotest',
   -- require 'carnifx/plugins/dap',
-  require 'carnifx/plugins/oil',
   require 'carnifx/plugins/neogit',
   require 'carnifx/plugins/copilot',
+  require 'carnifx/plugins/copilot-chat',
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.

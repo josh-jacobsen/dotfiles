@@ -53,6 +53,9 @@ vim.keymap.set('n', '<leader>mf', ':Neotree reveal=true<CR>', { desc = '[Misc] [
 -- Neogit keymaps
 vim.keymap.set('n', '<leader>mg', ':Neogit<CR>', { desc = '[M]isc [G]it' })
 
+-- Neogit keymaps
+vim.keymap.set('n', '<leader>mo', ':Oil<CR>', { desc = '[M]isc [O]il' })
+
 -- Gitsigns keymaps
 vim.keymap.set('n', '<leader>mn', ':Gitsigns next_hunk<CR>', { desc = '[M]isc [N]ext Hunk' })
 vim.keymap.set('n', '<leader>mp', ':Gitsigns prev_hunk<CR>', { desc = '[M]isc [P]rev Hunk' })
