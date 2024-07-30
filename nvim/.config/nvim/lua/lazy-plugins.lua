@@ -23,7 +23,17 @@ require('lazy').setup({
     opts = {},
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
-
+  {
+    'rmagatti/auto-session',
+    dependencies = {
+      'nvim-telescope/telescope.nvim', -- Only needed if you want to use sesssion lens
+    },
+    config = function()
+      require('auto-session').setup {
+        auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      }
+    end,
+  },
   require 'kickstart/plugins/gitsigns',
 
   require 'kickstart/plugins/which-key',
