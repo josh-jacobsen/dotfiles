@@ -14,6 +14,8 @@ vim.keymap.set('n', 'x', '"_x')
 -- Shoutcut to save file (inbuilt Keybinds are ZZ to save and exit, ZQ to exit without saving)
 vim.keymap.set('n', '<leader><leader>q', ':wqa<CR>', { desc = 'Save all and quit' })
 
+vim.keymap.set('n', 'Q', '@q', { desc = 'Apply macro' })
+
 -- When code is selected, use J and K to move the blocks up/down
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
