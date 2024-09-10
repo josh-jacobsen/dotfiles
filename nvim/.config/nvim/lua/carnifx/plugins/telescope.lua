@@ -101,7 +101,11 @@ return {
       end, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
+      -- Sort buffers in order of last opened
+      vim.keymap.set('n', '<leader>sb', function()
+        require('telescope.builtin').buffers { desc = '[S]earch [B]uffers', sort_lastused = true, sort_mru = true }
+      end)
+
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 
       -- Slightly advanced example of overriding default behavior and theme
