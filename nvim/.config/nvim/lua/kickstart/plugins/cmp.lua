@@ -36,6 +36,8 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer', -- source for text in buffer
       'onsails/lspkind.nvim', -- vs-code like pictograms
+
+      'SergioRibera/cmp-dotenv',
     },
     config = function()
       -- See `:help cmp`
@@ -99,6 +101,7 @@ return {
         },
 
         sources = {
+          { name = 'dotenv' },
           { name = 'copilot', group_index = 2 },
           { name = 'nvim_lsp', group_index = 2 },
           { name = 'luasnip', group_index = 2 },

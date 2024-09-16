@@ -34,6 +34,17 @@ require('lazy').setup({
       }
     end,
   },
+
+  -- AI integration
+  {
+    'pasky/claude.vim',
+    config = function()
+      vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
+    end,
+  },
+
+  require 'carnifx/plugins/parrot',
+
   require 'kickstart/plugins/gitsigns',
 
   require 'kickstart/plugins/which-key',
