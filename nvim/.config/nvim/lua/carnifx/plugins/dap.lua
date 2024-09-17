@@ -22,11 +22,12 @@ return {
       end,
     },
     {
-      '<leader>td',
+      '<leader>tb',
       function()
         require('dap').toggle_breakpoint()
       end,
-      desc = { 'Toggle breakpoint' },
+      -- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+      { desc = 'Toggle breakpoint' },
     },
     {
       '<leader>tc',
