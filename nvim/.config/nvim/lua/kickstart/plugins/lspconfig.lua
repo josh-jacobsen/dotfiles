@@ -201,6 +201,8 @@ return {
           'prettierd', -- prettierd formatter
           'stylua', -- lua formatter
           -- 'eslint_d',
+          'isort', -- python formatter
+          'black', -- python formatter
         },
       }
 
@@ -251,6 +253,21 @@ return {
                 },
               },
             },
+          }
+        end,
+
+        ['terraformls'] = function()
+          lspconfig['terraformls'].setup {
+            capabilities = capabilities,
+            ---@diagnostic disable-next-line: unused-local
+            on_attach = function(client, bufnr)
+              vim.api.nvim_create_autocmd('BufWritePre', {
+                pattern = { '*.tf', '*.tfvars' },
+                callback = function()
+                  vim.lsp.buf.format()
+                end,
+              })
+            end,
           }
         end,
       }
