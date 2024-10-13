@@ -209,13 +209,13 @@ return {
       mason_lspconfig.setup {
         -- list of servers for mason to install
         ensure_installed = {
-          'lua_ls',
           'eslint',
+          'lua_ls',
           -- Don't install tsserver from Mason as it conflicts with the version installed in each TS project. This does mean that the LSP (in the form of
           -- typescript-tools) won't attach to the buffer until npm install has been run in each directory
           -- 'tsserver',
-          'tflint',
           'terraformls',
+          'tflint',
         },
       }
 
@@ -226,50 +226,51 @@ return {
             capabilities = capabilities,
           }
         end,
-        ['eslint'] = function()
-          lspconfig['eslint'].setup {
-            capabilities = capabilities,
-            ---@diagnostic disable-next-line: unused-local
-            on_attach = function(client, bufnr)
-              vim.api.nvim_create_autocmd('BufWritePre', {
-                buffer = bufnr,
-                command = 'EslintFixAll',
-              })
-            end,
-          }
-        end,
-        ['lua_ls'] = function()
-          -- configure lua server (with special settings)
-          lspconfig['lua_ls'].setup {
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                -- make the language server recognize "vim" global
-                diagnostics = {
-                  globals = { 'vim' },
-                },
-                completion = {
-                  callSnippet = 'Replace',
-                },
-              },
-            },
-          }
-        end,
+      }
 
-        ['terraformls'] = function()
-          lspconfig['terraformls'].setup {
-            capabilities = capabilities,
-            ---@diagnostic disable-next-line: unused-local
-            on_attach = function(client, bufnr)
-              vim.api.nvim_create_autocmd('BufWritePre', {
-                pattern = { '*.tf', '*.tfvars' },
-                callback = function()
-                  vim.lsp.buf.format()
-                end,
-              })
-            end,
-          }
+      -- Most of this configuratoin is already done by the default mason_lspconfig.setup_handlers call, but I like the descriptive nature of invoking all the installed language servers
+      lspconfig.eslint.setup {
+        capabilities = capabilities,
+        ---@diagnostic disable-next-line: unused-local
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            command = 'EslintFixAll',
+          })
         end,
+      }
+
+      lspconfig['lua_ls'].setup {
+        on_attach = function(client, bufnr)
+          -- print 'lua_ls attached'
+        end,
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            -- make the language server recognize "vim" global
+            diagnostics = {
+              globals = { 'vim' },
+            },
+            completion = {
+              callSnippet = 'Replace',
+            },
+          },
+        },
+      }
+
+      lspconfig.terraformls.setup {
+        on_attach = function(client, bufnr)
+          -- print 'terraformls attached!'
+        end,
+      }
+
+      lspconfig.tflint.setup {
+        on_attach = function(client, bufnr) end,
+      }
+
+      -- https://github.com/mattn/efm-langserver is also installed directly rather than via Mason, so doesn't appear in the list above
+      lspconfig.efm.setup {
+        on_attach = function(client, bufnr) end,
       }
     end,
   },

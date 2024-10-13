@@ -13,12 +13,6 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
 
   {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  },
-  {
     'stevearc/oil.nvim',
     opts = {},
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -71,6 +65,7 @@ require('lazy').setup({
 
   require 'carnifx/plugins/typescript-tools',
 
+  require 'carnifx/plugins/formatter',
   require 'carnifx/plugins/toggleterm',
   require 'carnifx/plugins/autopairs',
   require 'carnifx/plugins/lsp-signature',
@@ -80,8 +75,17 @@ require('lazy').setup({
   -- Debugging
   require 'carnifx/plugins/dap',
   require 'carnifx/plugins/neogit',
+
+  -- AI (Claude, Copilot, etc)
+
   require 'carnifx/plugins/copilot',
   require 'carnifx/plugins/copilot-chat',
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+  },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
