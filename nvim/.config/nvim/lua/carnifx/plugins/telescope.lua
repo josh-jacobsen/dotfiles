@@ -103,8 +103,8 @@ return {
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       -- Sort buffers in order of last opened
       vim.keymap.set('n', '<leader>sb', function()
-        require('telescope.builtin').buffers { desc = '[S]earch [B]uffers', sort_lastused = true, sort_mru = true }
-      end)
+        require('telescope.builtin').buffers { sort_lastused = true, sort_mru = true }
+      end, { desc = '[S]earch [B]uffers' })
 
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 

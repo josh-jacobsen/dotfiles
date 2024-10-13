@@ -26,7 +26,6 @@ return {
       function()
         require('dap').toggle_breakpoint()
       end,
-      -- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
       { desc = 'Toggle breakpoint' },
     },
     {
@@ -36,19 +35,19 @@ return {
       end,
     },
     {
-      "<C-'>",
+      '<leader>tq',
       function()
         require('dap').step_over()
       end,
     },
     {
-      '<C-;>',
+      '<leader>tw',
       function()
         require('dap').step_into()
       end,
     },
     {
-      '<C-:>',
+      '<leader>te',
       function()
         require('dap').step_out()
       end,

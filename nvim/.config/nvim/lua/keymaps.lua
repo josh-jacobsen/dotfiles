@@ -52,6 +52,11 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>mc', ':Neotree close right<CR>', { desc = '[M]isc [C]lose Neotree' })
 vim.keymap.set('n', '<leader>mf', ':Neotree reveal=true<CR>', { desc = '[Misc] [F]ind file in Neotree' })
 
+-- Nvim-dap keymaps
+-- vim.keymap.set('n', '<leader>tu', function()
+--   require('dapui').toggle()
+-- end, { desc = '[T]est [UI]' })
+
 -- Neogit keymaps
 vim.keymap.set('n', '<leader>mg', ':Neogit<CR>')
 
@@ -104,7 +109,7 @@ vim.api.nvim_create_autocmd({ 'BufRead' }, {
   end,
 })
 
-vim.keymap.set('n', '<Leader>b', function()
+vim.keymap.set('n', '<Leader>mb', function()
   local curbufnr = vim.api.nvim_get_current_buf()
   local buflist = vim.api.nvim_list_bufs()
   for _, bufnr in ipairs(buflist) do
@@ -112,6 +117,6 @@ vim.keymap.set('n', '<Leader>b', function()
       vim.cmd('bd ' .. tostring(bufnr))
     end
   end
-end, { silent = true, desc = 'Close unused buffers' })
+end, { silent = true, desc = '[M]isc [B]uffers Close All' })
 
 -- vim: ts=2 sts=2 sw=2 et
