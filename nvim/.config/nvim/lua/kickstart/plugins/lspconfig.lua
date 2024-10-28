@@ -271,7 +271,7 @@ return {
           print 'pylsp attached!'
         end,
       }
-
+      
       lspconfig.tflint.setup {
         on_attach = function(client, bufnr) end,
       }
