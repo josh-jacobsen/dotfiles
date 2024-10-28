@@ -28,15 +28,10 @@ require('lazy').setup({
       }
     end,
   },
-
-  -- AI integration
   {
-    'pasky/claude.vim',
-    config = function()
-      vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
-    end,
+    'LintaoAmons/scratch.nvim',
+    event = 'VeryLazy',
   },
-
   require 'carnifx/plugins/parrot',
 
   require 'kickstart/plugins/gitsigns',
@@ -84,6 +79,29 @@ require('lazy').setup({
     'zbirenbaum/copilot-cmp',
     config = function()
       require('copilot_cmp').setup()
+    end,
+  },
+  -- AI integration
+  {
+    'pasky/claude.vim',
+    config = function()
+      vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
+
+      -- Define a configuration function
+      _G.configure_claude = function(opts)
+        opts = opts or {}
+        vim.g.claude_prompt = opts.prompt or vim.g.claude_prompt or 'You are a helpful AI assistant.'
+        vim.g.claude_context = opts.context or vim.g.claude_context or ''
+      end
+
+      -- Set default values
+      configure_claude()
+
+      -- Example usage:
+      -- configure_claude({
+      --   prompt = "You are an expert Lua programmer.",
+      --   context = "We are working on a Neovim plugin."
+      -- })
     end,
   },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the

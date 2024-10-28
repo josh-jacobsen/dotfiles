@@ -216,6 +216,8 @@ return {
           -- 'tsserver',
           'terraformls',
           'tflint',
+          'efm',
+          'pylsp',
         },
       }
 
@@ -261,6 +263,12 @@ return {
       lspconfig.terraformls.setup {
         on_attach = function(client, bufnr)
           -- print 'terraformls attached!'
+        end,
+      }
+
+      lspconfig.pylsp.setup {
+        on_attach = function(client, bufnr)
+          print 'pylsp attached!'
         end,
       }
 

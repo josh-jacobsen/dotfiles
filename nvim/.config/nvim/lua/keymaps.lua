@@ -11,6 +11,10 @@ vim.keymap.set('i', 'jk', '<ESC>')
 -- delete single character without copying into register
 vim.keymap.set('n', 'x', '"_x')
 
+-- delete single character without copying into register
+vim.keymap.set('n', '<leader>mn', '<cmd>ScratchWithName<cr>', { desc = '[M]isc Scratch [N]ew' })
+vim.keymap.set('n', '<leader>ms', '<cmd>ScratchOpen<cr>', { desc = '[M]isc [S]cratch Open' })
+
 -- Shoutcut to save file (inbuilt Keybinds are ZZ to save and exit, ZQ to exit without saving)
 vim.keymap.set('n', '<leader><leader>q', ':wqa<CR>', { desc = 'Save all and quit' })
 
