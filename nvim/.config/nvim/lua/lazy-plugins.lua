@@ -87,23 +87,25 @@ require('lazy').setup({
     'pasky/claude.vim',
     config = function()
       vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
-
-      -- Define a configuration function
-      _G.configure_claude = function(opts)
-        opts = opts or {}
-        vim.g.claude_prompt = opts.prompt or vim.g.claude_prompt or 'You are a helpful AI assistant.'
-        vim.g.claude_context = opts.context or vim.g.claude_context or ''
-      end
-
-      -- Set default values
-      configure_claude()
-
-      -- Example usage:
-      -- configure_claude({
-      --   prompt = "You are an expert Lua programmer.",
-      --   context = "We are working on a Neovim plugin."
-      -- })
     end,
+  },
+
+  {
+    'linux-cultist/venv-selector.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+      'mfussenegger/nvim-dap-python', --optional
+      { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+    },
+    lazy = false,
+    branch = 'regexp', -- This is the regexp branch, use this for the new version
+    config = function()
+      require('venv-selector').setup()
+    end,
+    keys = {
+      { ',v', '<cmd>VenvSelect<cr>' },
+    },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
