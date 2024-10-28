@@ -216,7 +216,6 @@ return {
           -- 'tsserver',
           'terraformls',
           'tflint',
-          'efm',
           'pylsp',
         },
       }
