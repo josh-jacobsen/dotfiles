@@ -28,15 +28,10 @@ require('lazy').setup({
       }
     end,
   },
-
-  -- AI integration
   {
-    'pasky/claude.vim',
-    config = function()
-      vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
-    end,
+    'LintaoAmons/scratch.nvim',
+    event = 'VeryLazy',
   },
-
   require 'carnifx/plugins/parrot',
 
   require 'kickstart/plugins/gitsigns',
@@ -68,7 +63,6 @@ require('lazy').setup({
   require 'carnifx/plugins/formatter',
   require 'carnifx/plugins/toggleterm',
   require 'carnifx/plugins/autopairs',
-  require 'carnifx/plugins/lsp-signature',
   require 'carnifx/plugins/vim-tmux-navigator',
   require 'carnifx/plugins/harpoon',
   require 'carnifx/plugins/neotest',
@@ -77,15 +71,41 @@ require('lazy').setup({
   require 'carnifx/plugins/neogit',
 
   -- AI (Claude, Copilot, etc)
+  -- require 'carnifx/plugins/copilot',
+  -- require 'carnifx/plugins/copilot-chat',
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- },
+  -- {
+  --   'pasky/claude.vim',
+  --   config = function()
+  --     vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
+  --   end,
+  -- },
 
-  require 'carnifx/plugins/copilot',
-  require 'carnifx/plugins/copilot-chat',
+  -- Python env switching
   {
-    'zbirenbaum/copilot-cmp',
+
+    'linux-cultist/venv-selector.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+      'mfussenegger/nvim-dap-python', --optional
+      { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+    },
+    lazy = false,
+    branch = 'regexp', -- This is the regexp branch, use this for the new version
     config = function()
-      require('copilot_cmp').setup()
+      require('venv-selector').setup()
     end,
+    keys = {
+      { ',v', '<cmd>VenvSelect<cr>' },
+    },
   },
+
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.

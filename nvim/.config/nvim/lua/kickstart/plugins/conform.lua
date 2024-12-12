@@ -6,7 +6,11 @@ return {
       {
         '<leader>cf',
         function()
-          require('conform').format { async = false, lsp_fallback = true }
+          require('conform').setup {
+            format_after_save = {
+              lsp_format = 'fallback',
+            },
+          }
         end,
         mode = '',
         desc = '[C]ode [F]ormat',
@@ -17,11 +21,12 @@ return {
       format_on_save = { async = false, lsp_fallback = true },
 
       formatters_by_ft = {
+
         lua = { 'stylua' },
-        javascript = { { 'prettierd', 'prettier' } },
-        typescript = { { 'prettierd', 'prettier' } },
-        javascriptreact = { { 'prettierd', 'prettier' } },
-        typescriptreact = { { 'prettierd', 'prettier' } },
+        javascript = { 'prettier', 'prettierd' },
+        typescript = { 'prettier', 'prettierd' },
+        javascriptreact = { 'prettier', 'prettierd' },
+        typescriptreact = { 'prettier', 'prettierd' },
         python = { 'isort', 'black' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },

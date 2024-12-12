@@ -11,6 +11,10 @@ vim.keymap.set('i', 'jk', '<ESC>')
 -- delete single character without copying into register
 vim.keymap.set('n', 'x', '"_x')
 
+-- delete single character without copying into register
+vim.keymap.set('n', '<leader>mn', '<cmd>ScratchWithName<cr>', { desc = '[M]isc Scratch [N]ew' })
+vim.keymap.set('n', '<leader>ms', '<cmd>ScratchOpen<cr>', { desc = '[M]isc [S]cratch Open' })
+
 -- Shoutcut to save file (inbuilt Keybinds are ZZ to save and exit, ZQ to exit without saving)
 vim.keymap.set('n', '<leader><leader>q', ':wqa<CR>', { desc = 'Save all and quit' })
 
@@ -69,6 +73,12 @@ vim.keymap.set('n', '<leader>cl', ':EslintFixAll<CR>', { desc = '[C]ode [L]int' 
 -- ToggleTerm keymaps
 vim.keymap.set('n', '<leader>md', ':ToggleTerm size=15<CR>', { desc = '[Misc] Open Terminal [D]own' })
 vim.keymap.set('n', '<leader>ml', ':ToggleTerm direction=float<CR>', { desc = '[M]isc Open Terminal [L]evitating' })
+vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

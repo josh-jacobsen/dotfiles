@@ -36,7 +36,7 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer', -- source for text in buffer
       'onsails/lspkind.nvim', -- vs-code like pictograms
-
+      'hrsh7th/cmp-nvim-lsp-signature-help', -- add function signature completion
       'SergioRibera/cmp-dotenv',
     },
     config = function()
@@ -102,6 +102,7 @@ return {
 
         sources = {
           { name = 'nvim_lsp', group_index = 2 },
+          { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip', group_index = 2 },
           { name = 'path', group_index = 2 },
           { name = 'buffer', group_index = 2 }, -- text within current buffer
