@@ -63,7 +63,6 @@ require('lazy').setup({
   require 'carnifx/plugins/formatter',
   require 'carnifx/plugins/toggleterm',
   require 'carnifx/plugins/autopairs',
-  require 'carnifx/plugins/lsp-signature',
   require 'carnifx/plugins/vim-tmux-navigator',
   require 'carnifx/plugins/harpoon',
   require 'carnifx/plugins/neotest',
@@ -72,25 +71,24 @@ require('lazy').setup({
   require 'carnifx/plugins/neogit',
 
   -- AI (Claude, Copilot, etc)
+  -- require 'carnifx/plugins/copilot',
+  -- require 'carnifx/plugins/copilot-chat',
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- },
+  -- {
+  --   'pasky/claude.vim',
+  --   config = function()
+  --     vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
+  --   end,
+  -- },
 
-  require 'carnifx/plugins/copilot',
-  require 'carnifx/plugins/copilot-chat',
+  -- Python env switching
   {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  },
 
-  -- AI integration
-  {
-    'pasky/claude.vim',
-    config = function()
-      vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
-    end,
-  },
-
-  {
     'linux-cultist/venv-selector.nvim',
     dependencies = {
       'neovim/nvim-lspconfig',
@@ -107,6 +105,21 @@ require('lazy').setup({
       { ',v', '<cmd>VenvSelect<cr>' },
     },
   },
+
+  -- {
+  --   'ray-x/lsp_signature.nvim',
+  --   event = 'InsertEnter',
+  --   opts = {
+  --     bind = true,
+  --     handler_opts = {
+  --       border = 'rounded',
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     print 'attached signature'
+  --     require('lsp_signature').setup(opts)
+  --   end,
+  -- },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
