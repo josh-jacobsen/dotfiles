@@ -18,7 +18,9 @@ return {
     },
 
     opts = {
-      format_on_save = { async = false, lsp_fallback = true },
+      format_after_save = {
+        lsp_format = 'fallback',
+      },
 
       formatters_by_ft = {
 

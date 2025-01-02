@@ -272,6 +272,18 @@ return {
         on_attach = function(client, bufnr)
           print 'pylsp attached!'
         end,
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = {
+                maxLineLength = 200,
+              },
+              flake8 = {
+                maxLineLength = 200,
+              },
+            },
+          },
+        },
       }
 
       lspconfig.tflint.setup {
