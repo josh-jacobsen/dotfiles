@@ -1,0 +1,2 @@
+
+a file had to exist in this folder for it to be added to git 
