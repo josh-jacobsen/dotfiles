@@ -24,7 +24,12 @@ require('lazy').setup({
     },
     config = function()
       require('auto-session').setup {
+        auto_session_create_enabled = true,
+        auto_restore_enabled = false, -- Disable automatic restore
         auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+        bypass_session_save_file_types = {
+          'neo-tree', -- Add this line
+        },
       }
     end,
   },

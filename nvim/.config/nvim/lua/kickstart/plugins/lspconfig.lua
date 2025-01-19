@@ -291,9 +291,9 @@ return {
       }
 
       -- https://github.com/mattn/efm-langserver is also installed directly rather than via Mason, so doesn't appear in the list above
-      lspconfig.efm.setup {
-        on_attach = function(client, bufnr) end,
-      }
+      -- lspconfig.efm.setup {
+      --   on_attach = function(client, bufnr) end,
+      -- }
     end,
   },
 }
