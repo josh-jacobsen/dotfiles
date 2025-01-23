@@ -25,10 +25,17 @@ require('lazy').setup({
     config = function()
       require('auto-session').setup {
         auto_session_create_enabled = true,
-        -- auto_restore_enabled = false, -- Disable automatic restore
         auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+        pre_save_cmds = {
+          function()
+            -- Close Neo-tree before saving session
+            vim.cmd 'Neotree close'
+          end,
+        },
         bypass_session_save_file_types = {
-          'neo-tree', -- Add this line
+          'neo-tree',
+          'NvimTree',
+          'neo-tree filesystem',
         },
       }
     end,
