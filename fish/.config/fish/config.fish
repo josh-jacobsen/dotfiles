@@ -36,9 +36,18 @@ function fish_prompt
         end
     end
     
-    # Print the prompt with username and the processed path
+    # Get git branch if in a git repository
+    set -l git_branch (git branch 2>/dev/null | grep '\*' | sed -e 's/\* //')
+    
+    # Print the prompt with username, processed path, and git branch if available
     echo -n (set_color green)$current_user(set_color normal)' '
-    echo -n (set_color blue)$display_path(set_color normal)' $ '
+    echo -n (set_color blue)$display_path(set_color normal)
+    if test -n "$git_branch"
+        echo -n ' ('(set_color yellow)$git_branch(set_color normal)')'
+    end
+    echo -n ' $ '
+
+
 end
 
 

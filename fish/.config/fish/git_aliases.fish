@@ -11,11 +11,10 @@ alias gcm 'git commit -m '
 alias gcma 'git commit --all'
 alias gsw 'git switch'
 alias g- 'git switch -'
-alias gco 'git checkout'
+alias gco 'git checkout -b '
 alias gc 'git checkout'
 alias gpl 'git pull'
 alias gpu 'git push'
-# alias gpu '[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
 
 alias gpuf 'git push -f'
 alias gm 'git merge'
@@ -38,7 +37,7 @@ alias grr 'git remote rm'
 alias grad 'git remote add'
 
 # Log
-alias gl 'git log'
+alias gl 'git log --oneline'
 alias glog 'git log --graph --pretty --abbrev-commit --date=relative --branches'
 
 # Rebasing
