@@ -55,6 +55,5 @@ end
 #     echo $PWD '> '
 # end
 source ~/.asdf/asdf.fish
-source ~/.config/fish/git_aliases.fish
 # Added by Windsurf
 fish_add_path /Users/josh/.codeium/windsurf/bin
