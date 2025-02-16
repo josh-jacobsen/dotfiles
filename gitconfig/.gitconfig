@@ -57,3 +57,5 @@
 	autoSetupRemote = true
 [pull]
 	ff = only
+[commit]
+	template = /Users/josh/.gitmessage

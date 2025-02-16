@@ -6,12 +6,12 @@
 -- for more info see: https://github.com/garcia5/dotfiles/blob/master/files/nvim/init.lua#L26-L32
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-
+  -- Core Improvements
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-surround', -- Surround text objects
+  'tpope/vim-repeat', -- Enable repeating supported plugin maps
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
-
+  -- UI Improvements
   {
     'stevearc/oil.nvim',
     opts = {},
@@ -20,22 +20,35 @@ require('lazy').setup({
   {
     'rmagatti/auto-session',
     dependencies = {
-      'nvim-telescope/telescope.nvim', -- Only needed if you want to use sesssion lens
+      'nvim-telescope/telescope.nvim',
     },
     config = function()
       require('auto-session').setup {
         auto_session_create_enabled = true,
         auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+        auto_restore_enabled = true,
+        auto_save_enabled = true,
         pre_save_cmds = {
           function()
-            -- Close Neo-tree before saving session
+            -- Close file trees before saving session
             vim.cmd 'Neotree close'
+            -- Close any floating windows
+            vim.cmd [[silent! close]]
           end,
         },
         bypass_session_save_file_types = {
           'neo-tree',
           'NvimTree',
           'neo-tree filesystem',
+          'qf', -- quickfix windows
+          'help',
+          'telescope',
+        },
+        session_lens = {
+          -- Configure Telescope session-lens
+          load_on_setup = true,
+          theme_conf = { border = true },
+          previewer = false,
         },
       }
     end,
@@ -51,6 +64,27 @@ require('lazy').setup({
   require 'kickstart/plugins/which-key',
 
   require 'kickstart/plugins/lspconfig',
+  -- Testing and Development
+  'joaohkfaria/vim-jest-snippets',
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {},
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- add your noice config here
+    },
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
+  },
+
+  -- "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} },
 
   require 'kickstart/plugins/conform',
 
@@ -78,25 +112,23 @@ require('lazy').setup({
   require 'carnifx/plugins/vim-tmux-navigator',
   require 'carnifx/plugins/harpoon',
   require 'carnifx/plugins/neotest',
+
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && npm install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+  },
+
   -- Debugging
   require 'carnifx/plugins/dap',
   require 'carnifx/plugins/neogit',
 
   -- AI (Claude, Copilot, etc)
-  -- require 'carnifx/plugins/copilot',
-  -- require 'carnifx/plugins/copilot-chat',
-  -- {
-  --   'zbirenbaum/copilot-cmp',
-  --   config = function()
-  --     require('copilot_cmp').setup()
-  --   end,
-  -- },
-  -- {
-  --   'pasky/claude.vim',
-  --   config = function()
-  --     vim.g.claude_api_key = os.getenv 'ANTHROPIC_API_KEY'
-  --   end,
-  -- },
+  require 'carnifx/plugins/avante',
 
   -- Python env switching
   {
