@@ -30,6 +30,9 @@ return {
         javascriptreact = { 'prettier', 'prettierd' },
         typescriptreact = { 'prettier', 'prettierd' },
         python = { 'isort', 'black' },
+        terraform = { 'terraform_fmt' },
+        tf = { 'terraform_fmt' },
+        hcl = { 'terraform_fmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
