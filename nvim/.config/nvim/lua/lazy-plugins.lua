@@ -63,6 +63,9 @@ require('lazy').setup({
 
   require 'kickstart/plugins/which-key',
 
+  -- Custom LuaSnip configuration
+  require 'carnifx/plugins/luasnip',
+
   require 'kickstart/plugins/lspconfig',
   -- Testing and Development
   'joaohkfaria/vim-jest-snippets',
@@ -71,17 +74,82 @@ require('lazy').setup({
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {},
   },
-  {
-    'folke/noice.nvim',
-    event = 'VeryLazy',
-    opts = {
-      -- add your noice config here
-    },
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
-    },
-  },
+
+  -- {
+  --   'folke/noice.nvim',
+  --   event = 'VeryLazy',
+  --   opts = {
+  --     cmdline = {
+  --       view = 'cmdline', -- Traditional command line view
+  --     },
+  --     messages = {
+  --       view = 'notify',
+  --       view_error = 'notify',
+  --       view_warn = 'notify',
+  --     },
+  --     routes = {
+  --       -- Skip "recording" messages in command line
+  --       {
+  --         filter = {
+  --           event = 'msg_showmode',
+  --           find = 'recording',
+  --         },
+  --         opts = { skip = true },
+  --       },
+  --       -- Also skip "recording" messages with msg_show event type
+  --       {
+  --         filter = {
+  --           event = 'msg_show',
+  --           find = 'recording',
+  --         },
+  --         opts = { skip = true },
+  --       },
+  --       -- Skip recorded message too
+  --       {
+  --         filter = {
+  --           event = 'msg_showmode',
+  --           find = 'recorded',
+  --         },
+  --         opts = { skip = true },
+  --       },
+  --     },
+  --     -- Ensure status is visible
+  --     views = {
+  --       cmdline_popup = {
+  --         position = {
+  --           row = 5,
+  --           col = "50%",
+  --         },
+  --         size = {
+  --           width = 60,
+  --           height = "auto",
+  --         },
+  --       },
+  --       popupmenu = {
+  --         relative = "editor",
+  --         position = {
+  --           row = 8,
+  --           col = "50%",
+  --         },
+  --         size = {
+  --           width = 60,
+  --           height = 10,
+  --         },
+  --         border = {
+  --           style = "rounded",
+  --           padding = { 0, 1 },
+  --         },
+  --         win_options = {
+  --           winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+  --         },
+  --       },
+  --     },
+  --   },
+  --   dependencies = {
+  --     'MunifTanjim/nui.nvim',
+  --     'rcarriga/nvim-notify',
+  --   },
+  -- },
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
