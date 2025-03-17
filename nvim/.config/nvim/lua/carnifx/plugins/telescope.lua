@@ -74,7 +74,9 @@ return {
         -- pickers = {}
         pickers = {
           find_files = {
-            find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden' },
+            find_command = { 'rg', '--files', '--iglob', '!.git', '--iglob', '!package-lock.json', '--hidden' },
+            hidden = true,
+            file_ignore_patterns = { 'package%-lock%.json' },
           },
         },
         extensions = {
@@ -92,13 +94,22 @@ return {
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files {
+          hidden = true,
+          file_ignore_patterns = { 'package%-lock%.json' },
+        }
+      end, { desc = '[S]earch [F]iles (including hidden)' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      -- When grepping in files, include characters such as [ ( , . * etc by default
+      -- When grepping in files, include characters such as [ ( , . * etc by default and search hidden files
       vim.keymap.set('n', '<leader>sg', function()
-        require('telescope.builtin').live_grep { additional_args = { '--fixed-strings' } }
-      end, { desc = '[S]earch by [G]rep' })
+        require('telescope.builtin').live_grep {
+          additional_args = { '--fixed-strings', '--hidden', '--glob', '!package-lock.json' },
+          -- Don't search in .git directory
+          glob_pattern = '!.git',
+        }
+      end, { desc = '[S]earch by [G]rep (including hidden)' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       -- Sort buffers in order of last opened
