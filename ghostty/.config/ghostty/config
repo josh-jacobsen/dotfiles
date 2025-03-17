@@ -1,13 +1,1 @@
 theme = tokyonight
-
-# Pane navigation keybindings
-keybind = ctrl+h=pane:select-left
-keybind = ctrl+j=pane:select-down
-keybind = ctrl+k=pane:select-up
-keybind = ctrl+l=pane:select-right
-
-# Create new panes
-keybind = ctrl+shift+h=pane:split-left
-keybind = ctrl+shift+j=pane:split-down
-keybind = ctrl+shift+k=pane:split-up
-keybind = ctrl+shift+l=pane:split-right
