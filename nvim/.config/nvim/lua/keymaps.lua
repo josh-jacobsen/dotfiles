@@ -80,6 +80,16 @@ vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
 vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 
+-- Terminal mode mappings to navigate out of terminal
+vim.api.nvim_create_autocmd('TermOpen', {
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', '<C-\\><C-n><C-w>h', { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', '<C-\\><C-n><C-w>j', { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', '<C-\\><C-n><C-w>k', { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', '<C-\\><C-n><C-w>l', { noremap = true })
+  end,
+})
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
