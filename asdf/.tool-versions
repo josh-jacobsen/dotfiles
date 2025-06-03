@@ -7,3 +7,4 @@ poetry 1.8.2
 pipenv 2024.4.0
 pnpm 9.15.0
 terraform 1.10.0
+pipx 1.7.1

@@ -57,3 +57,6 @@ end
 source ~/.asdf/asdf.fish
 # Added by Windsurf
 fish_add_path /Users/josh/.codeium/windsurf/bin
+
+# Created by `pipx` on 2025-03-27 04:33:59
+set PATH $PATH /Users/josh/.local/bin

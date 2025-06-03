@@ -197,6 +197,7 @@ require('lazy').setup({
 
   -- AI (Claude, Copilot, etc)
   require 'carnifx/plugins/avante',
+  require 'carnifx/plugins/copilot',
 
   -- Python env switching
   {
