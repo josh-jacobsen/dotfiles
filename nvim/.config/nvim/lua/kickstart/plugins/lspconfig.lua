@@ -141,44 +141,59 @@ return {
         local hl = 'DiagnosticSign' .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
       end
-      -- Enable the following language servers
-      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-      --
-      --  Add any additional override configuration in the following tables. Available keys are:
-      --  - cmd (table): Override the default command used to start the server
-      --  - filetypes (table): Override the default list of associated filetypes for the server
-      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-      --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
 
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+      -- Configure servers using vim.lsp.config (new v2.0+ way)
+      -- This replaces the old setup_handlers approach
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            -- make the language server recognize "vim" global
+            diagnostics = {
+              globals = { 'vim' },
+            },
+            completion = {
+              callSnippet = 'Replace',
             },
           },
         },
-      }
+      })
+
+      vim.lsp.config('eslint', {
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            command = 'EslintFixAll',
+          })
+        end,
+      })
+
+      vim.lsp.config('terraformls', {
+        on_attach = function(client, bufnr)
+          -- print 'terraformls attached!'
+        end,
+      })
+
+      vim.lsp.config('pylsp', {
+        on_attach = function(client, bufnr)
+          print 'pylsp attached!'
+        end,
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = {
+                maxLineLength = 200,
+              },
+              flake8 = {
+                maxLineLength = 200,
+              },
+            },
+          },
+        },
+      })
+
+      vim.lsp.config('tflint', {
+        on_attach = function(client, bufnr) end,
+      })
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -221,79 +236,9 @@ return {
           'tflint',
           'pylsp',
         },
+        -- Automatically enable LSP servers installed by Mason
+        automatic_enable = true,
       }
-
-      mason_lspconfig.setup_handlers {
-        -- default handler for installed servers
-        function(server_name)
-          lspconfig[server_name].setup {
-            capabilities = capabilities,
-          }
-        end,
-      }
-
-      -- Most of this configuratoin is already done by the default mason_lspconfig.setup_handlers call, but I like the descriptive nature of invoking all the installed language servers
-      lspconfig.eslint.setup {
-        capabilities = capabilities,
-        ---@diagnostic disable-next-line: unused-local
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = bufnr,
-            command = 'EslintFixAll',
-          })
-        end,
-      }
-
-      lspconfig['lua_ls'].setup {
-        on_attach = function(client, bufnr)
-          -- print 'lua_ls attached'
-        end,
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            -- make the language server recognize "vim" global
-            diagnostics = {
-              globals = { 'vim' },
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-          },
-        },
-      }
-
-      lspconfig.terraformls.setup {
-        on_attach = function(client, bufnr)
-          -- print 'terraformls attached!'
-        end,
-      }
-
-      lspconfig.pylsp.setup {
-        on_attach = function(client, bufnr)
-          print 'pylsp attached!'
-        end,
-        settings = {
-          pylsp = {
-            plugins = {
-              pycodestyle = {
-                maxLineLength = 200,
-              },
-              flake8 = {
-                maxLineLength = 200,
-              },
-            },
-          },
-        },
-      }
-
-      lspconfig.tflint.setup {
-        on_attach = function(client, bufnr) end,
-      }
-
-      -- https://github.com/mattn/efm-langserver is also installed directly rather than via Mason, so doesn't appear in the list above
-      -- lspconfig.efm.setup {
-      --   on_attach = function(client, bufnr) end,
-      -- }
     end,
   },
 }
