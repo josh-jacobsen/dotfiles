@@ -64,8 +64,9 @@ vim.keymap.set('n', '<leader>mf', ':Neotree reveal=true<CR>', { desc = '[Misc] [
 -- Neogit keymaps
 vim.keymap.set('n', '<leader>mg', ':Neogit<CR>')
 
--- Neogit keymaps
-vim.keymap.set('n', '<leader>mo', ':Oil<CR>')
+-- Misc keymaps
+vim.keymap.set('n', '<leader>mo', ':Oil<CR>', { desc = '[M]isc [O]il' })
+vim.keymap.set('n', '<leader>mp', ':Oil<CR>', { desc = '[M]isc [P]aste image' })
 
 -- ESLint keymaps
 vim.keymap.set('n', '<leader>cl', ':EslintFixAll<CR>', { desc = '[C]ode [L]int' })
