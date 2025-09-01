@@ -206,6 +206,7 @@ return {
           -- 'eslint_d',
           'isort', -- python formatter
           'black', -- python formatter
+          'python-lsp-server', -- python lsp with rope support
         },
       }
 
@@ -280,6 +281,38 @@ return {
               },
               flake8 = {
                 maxLineLength = 200,
+              },
+              -- Enable import-related plugins
+              rope_autoimport = {
+                enabled = true,
+                memory = true,
+              },
+              rope_completion = {
+                enabled = true,
+                eager = true,
+              },
+              -- Enable jedi for better completions and imports
+              jedi_completion = {
+                enabled = true,
+                include_params = true,
+                include_class_objects = true,
+                fuzzy = true,
+              },
+              jedi_definition = {
+                enabled = true,
+              },
+              jedi_hover = {
+                enabled = true,
+              },
+              jedi_references = {
+                enabled = true,
+              },
+              jedi_signature_help = {
+                enabled = true,
+              },
+              jedi_symbols = {
+                enabled = true,
+                all_scopes = true,
               },
             },
           },
