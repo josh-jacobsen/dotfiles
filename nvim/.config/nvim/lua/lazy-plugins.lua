@@ -195,9 +195,8 @@ require('lazy').setup({
   require 'carnifx/plugins/dap',
   require 'carnifx/plugins/neogit',
 
-  -- AI (Claude, Copilot, etc)
+  -- AI (Claude, etc)
   require 'carnifx/plugins/avante',
-  require 'carnifx/plugins/copilot',
 
   -- Python env switching
   require 'venv-selector-config',
