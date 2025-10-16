@@ -227,6 +227,10 @@ return {
       mason_lspconfig.setup_handlers {
         -- default handler for installed servers
         function(server_name)
+          -- Skip ts_ls since we use typescript-tools instead
+          if server_name == 'ts_ls' then
+            return
+          end
           lspconfig[server_name].setup {
             capabilities = capabilities,
           }
