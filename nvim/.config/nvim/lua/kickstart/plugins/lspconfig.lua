@@ -207,7 +207,11 @@ return {
           'isort', -- python formatter
           'black', -- python formatter
           'python-lsp-server', -- python lsp with rope support
+          'debugpy', -- python debugger
         },
+        auto_update = false,
+        run_on_start = true,
+        start_delay = 3000, -- 3 second delay
       }
 
       mason_lspconfig.setup {
