@@ -272,9 +272,22 @@ return {
       }
 
       lspconfig.terraformls.setup {
+        capabilities = capabilities,
         on_attach = function(client, bufnr)
           -- print 'terraformls attached!'
         end,
+        settings = {
+          terraform = {
+            -- Enable indexing of module calls to improve navigation
+            indexing = {
+              enabled = true,
+            },
+            -- Enable validation
+            validation = {
+              enabled = true,
+            },
+          },
+        },
       }
 
       lspconfig.pylsp.setup {
