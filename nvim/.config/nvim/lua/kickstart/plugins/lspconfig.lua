@@ -204,8 +204,8 @@ return {
           'prettierd', -- prettierd formatter
           'stylua', -- lua formatter
           -- 'eslint_d',
-          'isort', -- python formatter
-          'black', -- python formatter
+          -- 'isort', -- python formatter (installed via pip3 instead)
+          -- 'black', -- python formatter (installed via pip3 instead)
           'python-lsp-server', -- python lsp with rope support
           'debugpy', -- python debugger
         },
@@ -226,122 +226,132 @@ return {
           'tflint',
           'pylsp',
         },
-      }
-
-      mason_lspconfig.setup_handlers {
-        -- default handler for installed servers
-        function(server_name)
-          -- Skip ts_ls since we use typescript-tools instead
-          if server_name == 'ts_ls' then
-            return
-          end
-          lspconfig[server_name].setup {
-            capabilities = capabilities,
-          }
-        end,
-      }
-
-      -- Most of this configuratoin is already done by the default mason_lspconfig.setup_handlers call, but I like the descriptive nature of invoking all the installed language servers
-      lspconfig.eslint.setup {
-        capabilities = capabilities,
-        ---@diagnostic disable-next-line: unused-local
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = bufnr,
-            command = 'EslintFixAll',
-          })
-        end,
-      }
-
-      lspconfig['lua_ls'].setup {
-        on_attach = function(client, bufnr)
-          -- print 'lua_ls attached'
-        end,
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            -- make the language server recognize "vim" global
-            diagnostics = {
-              globals = { 'vim' },
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-          },
+        handlers = {
+          -- default handler for installed servers
+          function(server_name)
+            -- Skip ts_ls since we use typescript-tools instead
+            if server_name == 'ts_ls' then
+              return
+            end
+            lspconfig[server_name].setup {
+              capabilities = capabilities,
+            }
+          end,
+          -- Custom handler for eslint
+          ['eslint'] = function()
+            lspconfig.eslint.setup {
+              capabilities = capabilities,
+              ---@diagnostic disable-next-line: unused-local
+              on_attach = function(client, bufnr)
+                vim.api.nvim_create_autocmd('BufWritePre', {
+                  buffer = bufnr,
+                  command = 'EslintFixAll',
+                })
+              end,
+            }
+          end,
+          -- Custom handler for lua_ls
+          ['lua_ls'] = function()
+            lspconfig['lua_ls'].setup {
+              on_attach = function(client, bufnr)
+                -- print 'lua_ls attached'
+              end,
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  -- make the language server recognize "vim" global
+                  diagnostics = {
+                    globals = { 'vim' },
+                  },
+                  completion = {
+                    callSnippet = 'Replace',
+                  },
+                },
+              },
+            }
+          end,
+          -- Custom handler for terraformls
+          ['terraformls'] = function()
+            lspconfig.terraformls.setup {
+              capabilities = capabilities,
+              on_attach = function(client, bufnr)
+                -- print 'terraformls attached!'
+              end,
+              settings = {
+                terraform = {
+                  -- Enable indexing of module calls to improve navigation
+                  indexing = {
+                    enabled = true,
+                  },
+                  -- Enable validation
+                  validation = {
+                    enabled = true,
+                  },
+                },
+              },
+            }
+          end,
+          -- Custom handler for pylsp
+          ['pylsp'] = function()
+            lspconfig.pylsp.setup {
+              on_attach = function(client, bufnr)
+                print 'pylsp attached!'
+              end,
+              capabilities = capabilities,
+              settings = {
+                pylsp = {
+                  plugins = {
+                    pycodestyle = {
+                      maxLineLength = 200,
+                    },
+                    flake8 = {
+                      maxLineLength = 200,
+                    },
+                    -- Enable import-related plugins
+                    rope_autoimport = {
+                      enabled = true,
+                      memory = true,
+                    },
+                    rope_completion = {
+                      enabled = true,
+                      eager = true,
+                    },
+                    -- Enable jedi for better completions and imports
+                    jedi_completion = {
+                      enabled = true,
+                      include_params = true,
+                      include_class_objects = true,
+                      fuzzy = true,
+                    },
+                    jedi_definition = {
+                      enabled = true,
+                    },
+                    jedi_hover = {
+                      enabled = true,
+                    },
+                    jedi_references = {
+                      enabled = true,
+                    },
+                    jedi_signature_help = {
+                      enabled = true,
+                    },
+                    jedi_symbols = {
+                      enabled = true,
+                      all_scopes = true,
+                    },
+                  },
+                },
+              },
+            }
+          end,
+          -- Custom handler for tflint
+          ['tflint'] = function()
+            lspconfig.tflint.setup {
+              capabilities = capabilities,
+              on_attach = function(client, bufnr) end,
+            }
+          end,
         },
-      }
-
-      lspconfig.terraformls.setup {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- print 'terraformls attached!'
-        end,
-        settings = {
-          terraform = {
-            -- Enable indexing of module calls to improve navigation
-            indexing = {
-              enabled = true,
-            },
-            -- Enable validation
-            validation = {
-              enabled = true,
-            },
-          },
-        },
-      }
-
-      lspconfig.pylsp.setup {
-        on_attach = function(client, bufnr)
-          print 'pylsp attached!'
-        end,
-        settings = {
-          pylsp = {
-            plugins = {
-              pycodestyle = {
-                maxLineLength = 200,
-              },
-              flake8 = {
-                maxLineLength = 200,
-              },
-              -- Enable import-related plugins
-              rope_autoimport = {
-                enabled = true,
-                memory = true,
-              },
-              rope_completion = {
-                enabled = true,
-                eager = true,
-              },
-              -- Enable jedi for better completions and imports
-              jedi_completion = {
-                enabled = true,
-                include_params = true,
-                include_class_objects = true,
-                fuzzy = true,
-              },
-              jedi_definition = {
-                enabled = true,
-              },
-              jedi_hover = {
-                enabled = true,
-              },
-              jedi_references = {
-                enabled = true,
-              },
-              jedi_signature_help = {
-                enabled = true,
-              },
-              jedi_symbols = {
-                enabled = true,
-                all_scopes = true,
-              },
-            },
-          },
-        },
-      }
-
-      lspconfig.tflint.setup {
-        on_attach = function(client, bufnr) end,
       }
 
       -- https://github.com/mattn/efm-langserver is also installed directly rather than via Mason, so doesn't appear in the list above
