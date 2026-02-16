@@ -57,7 +57,6 @@ require('lazy').setup({
     'LintaoAmons/scratch.nvim',
     event = 'VeryLazy',
   },
-  require 'carnifx/plugins/parrot',
 
   require 'kickstart/plugins/gitsigns',
 
@@ -180,16 +179,6 @@ require('lazy').setup({
   require 'carnifx/plugins/vim-tmux-navigator',
   require 'carnifx/plugins/harpoon',
   require 'carnifx/plugins/neotest',
-
-  {
-    'iamcco/markdown-preview.nvim',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = 'cd app && npm install',
-    init = function()
-      vim.g.mkdp_filetypes = { 'markdown' }
-    end,
-    ft = { 'markdown' },
-  },
 
   -- Debugging
   require 'carnifx/plugins/dap',
