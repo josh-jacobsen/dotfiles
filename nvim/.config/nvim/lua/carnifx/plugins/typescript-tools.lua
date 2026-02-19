@@ -9,6 +9,22 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
   opts = {
     on_attach = function(client, bufnr)
+      local opts = { buffer = bufnr }
+      vim.keymap.set('n', 'gd', function()
+        -- Try source definition first (follows through to .ts source in node_modules).
+        -- Falls back to regular definition (e.g. .d.ts) for builtins like Node's crypto.
+        local params = vim.lsp.util.make_position_params()
+        vim.lsp.buf_request(bufnr, 'workspace/executeCommand', {
+          command = '_typescript.goToSourceDefinition',
+          arguments = { params.textDocument.uri, params.position },
+        }, function(err, result)
+          if err or not result or #result == 0 then
+            require('telescope.builtin').lsp_definitions()
+          else
+            vim.lsp.util.jump_to_location(result[1], 'utf-8')
+          end
+        end)
+      end, vim.tbl_extend('force', opts, { desc = 'LSP: [G]oto [D]efinition (source)' }))
       vim.keymap.set('n', '<leader>ci', ':TSToolsAddMissingImports<CR>', { desc = '[C]ode: Add Missing [I]mports' })
       vim.keymap.set('n', '<leader>cr', ':TSToolsRemoveUnused<CR>', { desc = '[C]ode: [R]emove Unused Statements' })
       vim.keymap.set('n', '<leader>cu', ':TSToolsRemoveUnusedImports<CR>', { desc = '[C]ode: Remove [U]nused Imports' })
