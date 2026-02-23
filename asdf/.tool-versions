@@ -8,3 +8,4 @@ pipenv 2024.4.0
 pnpm 10.29.3
 terraform 1.10.0
 pipx 1.7.1
+golang 1.26.0

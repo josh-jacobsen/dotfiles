@@ -31,6 +31,7 @@ return {
           terraform = { 'terraform_fmt' },
           tf = { 'terraform_fmt' },
           hcl = { 'terraform_fmt' },
+          go = { 'goimports', 'gofumpt' },
         },
 
         -- Format on save configuration

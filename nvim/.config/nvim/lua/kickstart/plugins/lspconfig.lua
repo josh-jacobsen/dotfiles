@@ -208,6 +208,8 @@ return {
           -- 'black', -- python formatter (installed via pip3 instead)
           'python-lsp-server', -- python lsp with rope support
           'debugpy', -- python debugger
+          'goimports',
+          'gofumpt',
         },
         auto_update = false,
         run_on_start = true,
@@ -225,6 +227,7 @@ return {
           'terraformls',
           'tflint',
           'pylsp',
+          'gopls',
         },
         handlers = {
           -- default handler for installed servers
@@ -349,6 +352,30 @@ return {
             lspconfig.tflint.setup {
               capabilities = capabilities,
               on_attach = function(client, bufnr) end,
+            }
+          end,
+          -- Custom handler for gopls
+          ['gopls'] = function()
+            lspconfig.gopls.setup {
+              capabilities = capabilities,
+              settings = {
+                gopls = {
+                  analyses = {
+                    unusedparams = true,
+                    shadow = true,
+                  },
+                  staticcheck = true,
+                  gofumpt = true,
+                  hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                  },
+                },
+              },
             }
           end,
         },

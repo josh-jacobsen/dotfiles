@@ -5,6 +5,7 @@ return {
     'nvim-lua/plenary.nvim',
     'antoinemadec/FixCursorHold.nvim',
     'nvim-neotest/neotest-jest',
+    'nvim-neotest/neotest-go',
     'nvim-treesitter/nvim-treesitter',
   },
   config = function()
@@ -52,6 +53,7 @@ return {
         unknown = 'NeotestUnknown',
       },
       adapters = {
+        require 'neotest-go' {},
         require 'neotest-jest' {
           dap = { justMyCode = false },
           jestCommand = 'npm test --',
