@@ -71,6 +71,9 @@ vim.keymap.set('n', '<leader>mo', ':Oil<CR>', { desc = '[M]isc [O]il' })
 -- ESLint keymaps
 vim.keymap.set('n', '<leader>cl', ':EslintFixAll<CR>', { desc = '[C]ode [L]int' })
 
+-- Pasting Images
+vim.keymap.set('n', '<leader>mp', ':PasteImage<CR>', { desc = '[M]isc paste image' })
+
 -- ToggleTerm keymaps
 vim.keymap.set('n', '<leader>md', ':ToggleTerm direction=horizontal size=15<CR>', { desc = '[Misc] Open Terminal [D]own' })
 vim.keymap.set('n', '<leader>ml', ':ToggleTerm direction=float<CR>', { desc = '[M]isc Open Terminal [L]evitating' })
