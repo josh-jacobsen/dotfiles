@@ -296,9 +296,35 @@ return {
           end,
           -- Custom handler for pylsp
           ['pylsp'] = function()
+            local function find_python(root)
+              -- .venv at project root
+              local venv_python = root .. '/.venv/bin/python'
+              if vim.fn.executable(venv_python) == 1 then
+                return venv_python
+              end
+              -- pipenv venv (stored outside project)
+              local pipfile = root .. '/Pipfile'
+              if vim.fn.filereadable(pipfile) == 1 then
+                local result = vim.fn.system('cd ' .. vim.fn.shellescape(root) .. ' && env -u AWS_VAULT -u AWS_DEFAULT_REGION -u AWS_ACCESS_KEY_ID -u AWS_SECRET_ACCESS_KEY -u AWS_SESSION_TOKEN PIPENV_DOTENV_LOCATION=/dev/null pipenv --venv 2>/dev/null')
+                local venv_path = vim.trim(result)
+                if venv_path ~= '' and vim.fn.isdirectory(venv_path) == 1 then
+                  local pipenv_python = venv_path .. '/bin/python'
+                  if vim.fn.executable(pipenv_python) == 1 then
+                    return pipenv_python
+                  end
+                end
+              end
+              return nil
+            end
+
             lspconfig.pylsp.setup {
               on_attach = function(client, bufnr)
-                print 'pylsp attached!'
+                local root = client.config.root_dir or vim.fn.getcwd()
+                local python = find_python(root)
+                if python then
+                  client.config.settings.pylsp.plugins.jedi = { environment = python }
+                  client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+                end
               end,
               capabilities = capabilities,
               settings = {

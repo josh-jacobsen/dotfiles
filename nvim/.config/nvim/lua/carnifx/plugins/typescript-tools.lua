@@ -8,13 +8,22 @@ return {
   'pmizio/typescript-tools.nvim',
   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
   opts = {
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    settings = {
+      expose_as_code_action = { 'add_missing_imports', 'fix_all', 'remove_unused', 'remove_unused_imports' },
+    },
     on_attach = function(client, bufnr)
       local opts = { buffer = bufnr }
       vim.keymap.set('n', 'gd', function()
+        local ft = vim.bo[bufnr].filetype
+        if ft == 'javascript' or ft == 'javascriptreact' then
+          require('telescope.builtin').lsp_definitions()
+          return
+        end
         -- Try source definition first (follows through to .ts source in node_modules).
         -- Falls back to regular definition (e.g. .d.ts) for builtins like Node's crypto.
         local params = vim.lsp.util.make_position_params()
-        vim.lsp.buf_request(bufnr, 'workspace/executeCommand', {
+        vim.lsp.buf_request(0, 'workspace/executeCommand', {
           command = '_typescript.goToSourceDefinition',
           arguments = { params.textDocument.uri, params.position },
         }, function(err, result)
@@ -25,6 +34,7 @@ return {
           end
         end)
       end, vim.tbl_extend('force', opts, { desc = 'LSP: [G]oto [D]efinition (source)' }))
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = '[C]ode [A]ction' })
       vim.keymap.set('n', '<leader>ci', ':TSToolsAddMissingImports<CR>', { desc = '[C]ode: Add Missing [I]mports' })
       vim.keymap.set('n', '<leader>cr', ':TSToolsRemoveUnused<CR>', { desc = '[C]ode: [R]emove Unused Statements' })
       vim.keymap.set('n', '<leader>cu', ':TSToolsRemoveUnusedImports<CR>', { desc = '[C]ode: Remove [U]nused Imports' })
