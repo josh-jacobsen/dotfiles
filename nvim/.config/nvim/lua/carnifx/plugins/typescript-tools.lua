@@ -22,11 +22,9 @@ return {
         end
         -- Try source definition first (follows through to .ts source in node_modules).
         -- Falls back to regular definition (e.g. .d.ts) for builtins like Node's crypto.
-        local params = vim.lsp.util.make_position_params()
-        vim.lsp.buf_request(0, 'workspace/executeCommand', {
-          command = '_typescript.goToSourceDefinition',
-          arguments = { params.textDocument.uri, params.position },
-        }, function(err, result)
+        local params = vim.lsp.util.make_position_params(0, 'utf-8')
+        params.context = { source_definition = true }
+        vim.lsp.buf_request(0, 'textDocument/definition', params, function(err, result)
           if err or not result or #result == 0 then
             require('telescope.builtin').lsp_definitions()
           else
