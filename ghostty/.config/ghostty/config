@@ -1,2 +1,4 @@
 theme = tokyonight
 keybind = shift+enter=text:\n
+clipboard-read = allow
+clipboard-write = allow

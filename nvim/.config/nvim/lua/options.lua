@@ -58,4 +58,10 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Don't persist :cd / :tcd / :lcd in sessions. auto-session already keys sessions by the
+-- directory nvim was launched from, and Neo-tree binds its root to the (tab) cwd, so a
+-- stray `tcd` (e.g. `~` in Oil or `.` in Neo-tree) would otherwise be restored forever
+-- and make the tree open on a subdirectory instead of the repo root.
+vim.opt.sessionoptions:remove 'curdir'
+
 -- vim: ts=2 sts=2 sw=2 et

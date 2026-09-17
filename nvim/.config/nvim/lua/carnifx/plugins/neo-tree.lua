@@ -21,10 +21,10 @@ return {
           hide_dotfiles = false,
           hide_gitignored = false,
         },
-        buffers = {
-          follow_current_file = true,
-          group_empty_dirs = true,
+        follow_current_file = {
+          enabled = true,
         },
+        group_empty_dirs = true,
       },
     }
   end,

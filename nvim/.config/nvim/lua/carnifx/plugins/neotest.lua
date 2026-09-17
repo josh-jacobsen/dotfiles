@@ -56,10 +56,39 @@ return {
         require 'neotest-go' {},
         require 'neotest-jest' {
           dap = { justMyCode = false },
-          jestCommand = 'npm test --',
-          jestConfigFile = 'jest.config.ts',
+          jestCommand = function()
+            return 'npx jest'
+          end,
+          isTestFile = function(file_path)
+            if file_path:match '/dist/' or file_path:match '%.d%.ts$' then
+              return false
+            end
+            return file_path:match '%.[jt]sx?$'
+              and (file_path:match '%.spec%.' or file_path:match '%.test%.' or file_path:match '__tests__')
+          end,
+          jestConfigFile = function(file)
+            local path = vim.fn.fnamemodify(file, ':h')
+            while path ~= '/' do
+              for _, config in ipairs { 'jest.config.ts', 'jest.config.js', 'jest.config.mjs' } do
+                local candidate = path .. '/' .. config
+                if vim.fn.filereadable(candidate) == 1 then
+                  return candidate
+                end
+              end
+              path = vim.fn.fnamemodify(path, ':h')
+            end
+          end,
           env = { CI = true },
           cwd = function(path)
+            local dir = vim.fn.fnamemodify(path, ':h')
+            while dir ~= '/' do
+              for _, config in ipairs { 'jest.config.ts', 'jest.config.js', 'jest.config.mjs', 'package.json' } do
+                if vim.fn.filereadable(dir .. '/' .. config) == 1 then
+                  return dir
+                end
+              end
+              dir = vim.fn.fnamemodify(dir, ':h')
+            end
             return vim.fn.getcwd()
           end,
         },

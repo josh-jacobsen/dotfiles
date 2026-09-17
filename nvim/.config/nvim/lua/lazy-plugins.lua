@@ -36,6 +36,11 @@ require('lazy').setup({
             vim.cmd [[silent! close]]
           end,
         },
+        -- Neo-tree is closed before every save (above), so it is never part of the
+        -- session itself. Reopen it once the session has been restored, and also
+        -- when nvim starts in a directory that has no session yet.
+        post_restore_cmds = { 'Neotree show' },
+        no_restore_cmds = { 'Neotree show' },
         bypass_session_save_file_types = {
           'neo-tree',
           'NvimTree',
